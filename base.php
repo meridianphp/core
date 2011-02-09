@@ -18,14 +18,14 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once COREPATH.'common.php';
-require_once COREPATH.'classes/controller.php';
-require_once COREPATH.'classes/output.php';
-require_once COREPATH.'classes/view.php';
-require_once COREPATH.'classes/request.php';
-require_once COREPATH.'classes/router.php';
-require_once COREPATH.'classes/load.php';
-require_once COREPATH.'classes/database.php';
+require_once SYSPATH.'common.php';
+require_once SYSPATH.'libraries/controller.php';
+require_once SYSPATH.'libraries/output.php';
+require_once SYSPATH.'libraries/view.php';
+require_once SYSPATH.'libraries/request.php';
+require_once SYSPATH.'libraries/router.php';
+require_once SYSPATH.'libraries/load.php';
+require_once SYSPATH.'libraries/database.php';
 
 class Meridian
 {

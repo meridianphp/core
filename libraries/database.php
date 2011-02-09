@@ -27,7 +27,7 @@ class Database
 		if(!is_array(self::$config)) return false;
 		
 		$driver = self::$config['driver'];
-		require COREPATH.'database/'.strtolower($driver).'/'.strtolower($driver).'.php';
+		require SYSPATH.'database/'.strtolower($driver).'/'.strtolower($driver).'.php';
 		
 		$name = 'DB_'.$driver;
 		return new $name(self::$config);
