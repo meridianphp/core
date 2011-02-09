@@ -20,7 +20,7 @@
 
 function baseurl()
 {
-	return trim(dirname($_SERVER['SCRIPT_NAME']),"\\").'/'.(func_num_args() > 0 ? implode('/', func_get_args()) : '');
+	return str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']).(func_num_args() > 0 ? implode('/', func_get_args()) : '');
 }
 
 function aselect($index, array $array)
