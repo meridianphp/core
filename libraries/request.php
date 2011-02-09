@@ -28,9 +28,6 @@ class Request
 	
 	public static function process()
 	{
-		// Set the entry file, usually index.php
-		self::$file = COREFILE;
-		
 		self::$request = trim(self::_getUri(), '/');
 		self::$segments = explode('/', self::$request);
 		self::$query = $_SERVER['QUERY_STRING'];
