@@ -45,8 +45,8 @@ class Load
 		
 		if(file_exists(APPPATH.'helpers/'.strtolower($file).'.php'))
 			require_once APPPATH.'helpers/'.strtolower($file).'.php';
-		else if(file_exists(COREPATH.'helpers/'.strtolower($file).'.php'))
-			require_once COREPATH.'helpers/'.strtolower($file).'.php';
+		else if(file_exists(SYSPATH.'helpers/'.strtolower($file).'.php'))
+			require_once SYSPATH.'helpers/'.strtolower($file).'.php';
 		else
 			Meridian::error('Loader Error','Unable to load helper: '.$file);
 		
@@ -56,7 +56,7 @@ class Load
 	
 	public static function model($name)
 	{
-		if(!class_exists('Model')) require_once COREPATH.'classes/model.php';
+		if(!class_exists('Model')) require_once SYSPATH.'classes/model.php';
 		
 		if(in_array($name, self::$models)) return self::$models[$name];
 		
