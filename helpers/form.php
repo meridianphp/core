@@ -90,7 +90,7 @@ class Form
 		}
 		elseif($type == 'checkbox')
 		{
-			return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" class="'.$type.'" '.(isset($args['checked']) && $args['checked'] ? 'checked ' :'').'/>';
+			return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" class="'.$type.'" '.(isset($args['checked']) && $args['checked'] ? 'checked ' :'').(isset($args['id']) ? ' id="'.$args['id'].'"' :'').'/>';
 		}
 	}
 }
