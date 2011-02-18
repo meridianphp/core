@@ -21,6 +21,7 @@
 class Router
 {
 	public static $routes;
+	public static $namespace;
 	public static $controller;
 	public static $method;
 	
@@ -63,11 +64,26 @@ class Router
 		if($segs[0] == '')
 			$segs = explode('/', str_replace('::', '/', self::$routes['/']));
 		
+		if(count($segs) == 3)
+		{
+			self::$namespace = $segs[0];
+			self::$controller = $segs[1];
+			self::$method = $segs[2];
+		}
+		else
+		{
+			self::$namespace = null;
+			self::$controller = $segs[0];
+			self::$method = (isset($segs[1]) ? $segs[1] : 'index');
+		}
+		
+		/*
 		self::$controller = $segs['0'];
 		if(!isset($segs['1']))
 			self::$method = 'index';
 		else
 			self::$method = $segs['1'];
+		*/
 		
 		unset($segs);
 	}

@@ -49,8 +49,8 @@ class Meridian
 		
 		// Load the controller
 		require_once APPPATH.'controllers/app_controller.php';
-		if(file_exists(APPPATH.'controllers/'.strtolower(Router::$controller).'_controller.php'))
-			require_once APPPATH.'controllers/'.strtolower(Router::$controller).'_controller.php';
+		if(file_exists(APPPATH.'controllers/'.strtolower((Router::$namespace != null ? Router::$namespace.'/' :'').Router::$controller).'_controller.php'))
+			require_once APPPATH.'controllers/'.strtolower((Router::$namespace != null ? Router::$namespace.'/' :'').Router::$controller).'_controller.php';
 		else
 		{
 			Router::$controller = 'Error';
@@ -58,7 +58,7 @@ class Meridian
 		}
 		
 		// Check if the method exists
-		if(!method_exists(Router::$controller.'Controller', Router::$method))
+		if(!method_exists(Router::$namespace.Router::$controller.'Controller', Router::$method))
 		{
 			Router::$controller = 'Error';
 			Router::$method = 'notFound';
@@ -75,11 +75,12 @@ class Meridian
 	{
 		self::$db = Database::init();
 		
-		$class = Router::$controller.'Controller';
+		$namespace = (Router::$namespace != null ? Router::$namespace.'/' :'');
+		$class = Router::$namespace.Router::$controller.'Controller';
 		self::$app = new $class;
 		call_user_func_array(array(self::$app, Router::$method), array_slice(Request::$segments, 2));
 		
-		View::render((self::$app->_view === null ? Router::$controller.'/'.Router::$method : self::$app->_view));
+		View::render((self::$app->_view === null ? $namespace.Router::$controller.'/'.Router::$method : self::$app->_view));
 		Output::display(self::$app->_layout);
 	}
 	
