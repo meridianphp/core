@@ -56,7 +56,7 @@ class Load
 	
 	public static function model($name)
 	{
-		if(!class_exists('Model')) require_once SYSPATH.'classes/model.php';
+		if(!class_exists('Model')) require_once SYSPATH.'libraries/model.php';
 		
 		if(in_array($name, self::$models)) return self::$models[$name];
 		
