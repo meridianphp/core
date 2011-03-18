@@ -18,6 +18,11 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Form Helper
+ * @package Meridian
+ * @subpackage Helpers
+ */
 class Form
 {
 	public static function text($name,$args=array())

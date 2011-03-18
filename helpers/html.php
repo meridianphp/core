@@ -18,6 +18,11 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * HTML Helper
+ * @package Meridian
+ * @subpackage Helpers
+ */
 class HTML
 {
 	/**

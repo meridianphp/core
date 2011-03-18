@@ -18,6 +18,11 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Javascript Helper
+ * @package Meridian
+ * @subpackage Helpers
+ */
 class JS
 {
 	public static function escape($content)

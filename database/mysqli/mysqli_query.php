@@ -18,6 +18,11 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * MySQL Improved Query handler
+ * @package Meridian
+ * @subpackage Database
+ */
 class MySQLi_Query
 {
 	private $type;

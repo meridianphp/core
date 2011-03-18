@@ -21,6 +21,11 @@
 require 'mysqli_query.php';
 require 'mysqli_statement.php';
 
+/**
+ * MySQL Impoved database handler
+ * @package Meridian
+ * @subpackage Database
+ */
 class DB_MySQLi
 {
 	private static $_instance;
