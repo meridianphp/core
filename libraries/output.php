@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Output handler
+ * @package Meridian
+ */
 class Output
 {
 	private static $final_output = '';

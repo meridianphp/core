@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * URL Request processor
+ * @package Meridian
+ */
 class Request
 {
 	public static $root;

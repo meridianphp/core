@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Database loader
+ * @package Meridian
+ */
 class Database
 {
 	public static $config;

@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * View handler
+ * @package Meridian
+ */
 class View
 {
 	private static $ob_level;

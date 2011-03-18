@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Database model base class
+ * @package Meridian
+ */
 class Model
 {
 	public $_table;

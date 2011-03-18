@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Loader
+ * @package Meridian
+ */
 class Load
 {
 	private static $helpers = array();

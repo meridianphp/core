@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Controller base class
+ * @package Meridian
+ */
 class Controller
 {
 	private static $_instance;

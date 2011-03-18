@@ -18,6 +18,10 @@
  * along with Meridian. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * URL Router
+ * @package Meridian
+ */
 class Router
 {
 	public static $routes;
