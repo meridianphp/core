@@ -73,9 +73,13 @@ class DB_MySQLi
 		return new MySQLi_Statement($result);
 	}
 	
-	public function res($string)
+	public function real_escape_string($string)
 	{
 		return mysqli_real_escape_string($this->link, $string);
+	}
+	public function res($string)
+	{
+		return $this->real_escape_string($string);
 	}
 	
 	public static function getInstance()
