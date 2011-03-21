@@ -31,6 +31,8 @@ class Controller
 	public function __construct()
 	{
 		$this->db = Meridian::$db;
+		
+		View::set('app', $this);
 	}
 	
 	public static function getInstance()
