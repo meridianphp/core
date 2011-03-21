@@ -26,6 +26,7 @@ class View
 {
 	private static $ob_level;
 	private static $theme;
+	private static $inherit_from;
 	private static $vars = array();
 	
 	public static function render($file, $return = false)
@@ -36,8 +37,23 @@ class View
 			$$_var = $_val;
 		
 		$file = strtolower($file);
-		if(!file_exists(APPPATH.'views/'.(self::$theme != null ? self::$theme.'/' : '').$file.'.php'))
+		
+		if(self::$theme != null and file_exists(APPPATH.'views/'.(self::$theme != null ? self::$theme.'/' : '').$file.'.php'))
+		{
+			$file = APPPATH.'views/'.(self::$theme != null ? self::$theme.'/' : '').$file.'.php';
+		}
+		elseif(self::$inherit_from != null and file_exists(APPPATH.'views/'.self::$inherit_from.'/'.$file.'.php'));
+		{
+			$file = APPPATH.'views/'.(self::$inherit_from != null ? self::$inherit_from.'/' : '').$file.'.php';
+		}
+		elseif(file_exists(APPPATH.'views/'.$file.'.php'))
+		{
+			$file = APPPATH.'views/'.$file.'.php';
+		}
+		else
+		{
 			Meridian::error('View Error', 'Unable to load view: '.$file);
+		}
 		
 		ob_start();
 		include(APPPATH.'views/'.$file.'.php');
