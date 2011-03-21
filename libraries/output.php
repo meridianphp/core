@@ -38,12 +38,29 @@ class Output
 		foreach(View::vars() as $_var => $val)
 			$$_var = $val;
 		
-		// Check if layout exists.
-		if(!file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
-			Meridian::error('View Error','Unable to load layout: '.$layout);
+		// Check if the theme has this layout
+		if(View::$theme != null and file_exists(APPPATH.'views/'.View::$theme.'/layouts/'.$layout.'.php'))
+		{
+			$layout = APPPATH.'views/'.View::$theme.'/layouts/'.$layout.'.php';
+		}
+		// I guess not, let's see if we can inherit it?
+		elseif(View::$inherit_from != null and file_exists(View::$inherit_from.'/layouts/'.$layout.'.php'))
+		{
+			$layout = View::$inherit_from.'/layouts/'.$layout.'.php';
+		}
+		// No? Well what about the usual layout direcotry?
+		elseif(file_exists(APPPATH.'views/'.$layout.'.php'))
+		{
+			$layout = APPPATH.'views/layouts/'.$layout.'.php';
+		}
+		// Not there either? I'm not sure then..
+		else
+		{
+			Meridian::error('Output Error', 'Unable to load layout: '.$layout);
+		}
 		
 		ob_start();
-		require(APPPATH.'views/layouts/'.$layout.'.php');
+		require($layout);
 		$page = ob_get_contents();
 		ob_end_clean();
 		
