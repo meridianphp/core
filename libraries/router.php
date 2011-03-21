@@ -81,14 +81,6 @@ class Router
 			self::$method = (isset($segs[1]) ? $segs[1] : 'index');
 		}
 		
-		/*
-		self::$controller = $segs['0'];
-		if(!isset($segs['1']))
-			self::$method = 'index';
-		else
-			self::$method = $segs['1'];
-		*/
-		
 		unset($segs);
 	}
 }
