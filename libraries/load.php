@@ -28,19 +28,23 @@ class Load
 	private static $classes = array();
 	private static $models = array();
 	
-	public static function library($name)
+	public static function library($name, $init = true)
 	{
-		if(in_array($name, self::$classes)) return self::$classes[$name];
+		if($init and in_array($name, self::$classes)) return self::$classes[$name];
 		
 		if(file_exists(APPPATH.'libraries/'.strtolower($name).'.php'))
 			require_once APPPATH.'libraries/'.strtolower($name).'.php';
 		else
 			Meridian::error('Loader Error','Unable to load library: '.$name);
 		
-		self::$classes[$name] = new $name();
-		self::$classes[$name]->db = Meridian::$db;
-		
-		return self::$classes[$name];
+		if($init)
+		{
+			self::$classes[$name] = new $name();
+			self::$classes[$name]->db = Meridian::$db;
+			
+			return self::$classes[$name];
+		}
+		else return true;
 	}
 	
 	public static function helper($file)
