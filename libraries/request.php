@@ -26,16 +26,29 @@ class Request
 {
 	public static $root;
 	public static $request;
+	public static $orig_request;
 	public static $query;
 	public static $segments;
+	public static $extension;
 	private static $file = 'index.php';
 	
 	public static function process()
 	{
 		self::$request = trim(self::_getUri(), '/');
+		self::$orig_request = trim(self::_getUri(), '/');
 		self::$segments = explode('/', self::$request);
 		self::$query = $_SERVER['QUERY_STRING'];
 		self::$root = '/'.trim(str_replace(array(self::$request, '?'.$_SERVER['QUERY_STRING'], '?'), '', $_SERVER['REQUEST_URI']), '/').'/';
+		
+		$last_seg = self::$segments[count(self::$segments)-1];
+		$last_seg = explode('.', $last_seg);
+		if(isset($last_seg[1]))
+		{
+			self::$segments[count(self::$segments)-1] = $last_seg[0];
+			self::$extension = $last_seg[1];
+			self::$request = implode('/', self::$segments);
+		}
+		unset($last_seg);
 	}
 	
 	public static function seg($num)
