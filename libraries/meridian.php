@@ -53,7 +53,7 @@ class Meridian
 		}
 		
 		// Check if the method exists
-		if(!method_exists(Router::$namespace.Router::$controller.'Controller', Router::$method))
+		if(!method_exists(Router::$controller.'Controller', Router::$method))
 		{
 			Router::$controller = 'Error';
 			Router::$method = 'notFound';
@@ -71,7 +71,7 @@ class Meridian
 		self::$db = Database::init();
 		
 		$namespace = (Router::$namespace != null ? Router::$namespace.'/' :'');
-		$class = Router::$namespace.Router::$controller.'Controller';
+		$class = Router::$controller.'Controller';
 		self::$app = new $class;
 		call_user_func_array(array(self::$app, Router::$method), array_slice(Request::$segments, 2));
 		
