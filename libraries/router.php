@@ -31,10 +31,12 @@ class Router
 	
 	public static function route()
 	{
+		$request = (Request::$extension !== null ? str_replace('.'.Request::$extension, '', Request::$request) : Request::$request);
+		
 		// Check if we only have one route
 		if(count(self::$routes) == 1)
 		{
-			self::_set_request(Request::$request);
+			self::_set_request($request);
 			return;
 		}
 		
@@ -46,10 +48,10 @@ class Router
 			
 			// Do we have a back-reference?
 			if(strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
-				$val = preg_replace('#^'.$key.'$#', $val, Request::$request);
+				$val = preg_replace('#^'.$key.'$#', $val, $request);
 			
 			// Check if theres a RegEx match
-			if(preg_match('#^'.$key.'$#', Request::$request))
+			if(preg_match('#^'.$key.'$#', $request))
 			{
 				self::_set_request($val);
 				return;

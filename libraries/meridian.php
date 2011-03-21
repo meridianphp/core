@@ -52,6 +52,12 @@ class Meridian
 			Router::$method = 'notFound';
 		}
 		
+		// Extension check
+		if(method_exists(Router::$controller.'Controller', str_replace('.'.Request::$extension, '', Request::$request)))
+		{
+			Router::$method = str_replace('.'.Request::$extension, '', Request::$request);
+		}
+		
 		// Check if the method exists
 		if(!method_exists(Router::$controller.'Controller', Router::$method))
 		{
