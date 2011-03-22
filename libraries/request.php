@@ -30,6 +30,7 @@ class Request
 	public static $query;
 	public static $segments;
 	public static $extension;
+	public static $method;
 	private static $file = 'index.php';
 	
 	public static function process()
@@ -39,7 +40,9 @@ class Request
 		self::$segments = explode('/', self::$request);
 		self::$query = $_SERVER['QUERY_STRING'];
 		self::$root = '/'.trim(str_replace(array(self::$request, '?'.$_SERVER['QUERY_STRING'], '?'), '', $_SERVER['REQUEST_URI']), '/').'/';
+		self::$method = strtolower($_SERVER['REQUEST_METHOD']);
 		
+		// Get the requested 'page' extension.
 		$last_seg = self::$segments[count(self::$segments)-1];
 		$last_seg = explode('.', $last_seg);
 		if(isset($last_seg[1]))
