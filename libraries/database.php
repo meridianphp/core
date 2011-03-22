@@ -33,6 +33,7 @@ class Database
 		$driver = self::$config['driver'];
 		require SYSPATH.'database/'.strtolower($driver).'/'.strtolower($driver).'.php';
 		
+		define("DBPREFIX", self::$config['prefix']);
 		$name = 'DB_'.$driver;
 		return new $name(self::$config);
 	}

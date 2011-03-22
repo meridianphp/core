@@ -118,7 +118,16 @@ class MySQLi_Query
 			{
 				$_where = array();
 				foreach($this->where as $col => $val)
-					$_where[] = "`".$this->prefix.$this->table."`.`".$col."`='".$val."'";
+				{
+					if(is_numeric($col))
+					{
+						$_where[] = "`".$this->prefix.$this->table."`.`".$val;
+					}
+					else
+					{
+						$_where[] = "`".$this->prefix.$this->table."`.`".$col."`='".$val."'";
+					}
+				}
 			
 				$sql .= ' WHERE '.implode(' AND ', $_where);
 			}
