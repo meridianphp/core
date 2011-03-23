@@ -67,6 +67,7 @@ class MySQLi_Query
 	
 	public function where($where)
 	{
+		if(!is_array($where)) $where = func_get_args();
 		$this->where = $where;
 		return $this;
 	}
@@ -121,7 +122,7 @@ class MySQLi_Query
 				{
 					if(is_numeric($col))
 					{
-						$_where[] = "`".$this->prefix.$this->table."`.`".$val;
+						$_where[] = "`".$this->prefix.$this->table."`.".$val;
 					}
 					else
 					{
