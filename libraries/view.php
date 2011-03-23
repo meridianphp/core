@@ -21,6 +21,7 @@
 /**
  * View handler
  * @package Meridian
+ * @todo Make it so render() pushes to the output buffer while get() returns the view code.
  */
 class View
 {
@@ -29,8 +30,15 @@ class View
 	public static $inherit_from;
 	private static $vars = array();
 	
-	public static function render($file, $return = false)
+	public static function render($file, array $vars = array())
 	{
+		// Make the given vars accessible.
+		if(count($vars))
+		{
+			foreach($vars as $_var => $_val)
+				$$_var = $_val;
+		}
+		
 		if(self::$ob_level === null) self::$ob_level = ob_get_level();
 		
 		foreach(self::$vars as $_var => $_val)
@@ -63,16 +71,16 @@ class View
 		include($file);
 		if(ob_get_level() > self::$ob_level + 1)
 		{
-			if($return)
-			{
-				$content = ob_get_contents();
-				ob_end_clean();
-				return $content;
-			}
-			else
-			{
+			//if($return)
+			//{
+			//	$content = ob_get_contents();
+			//	ob_end_clean();
+			//	return $content;
+			//}
+			//else
+			//{
 				ob_end_flush();
-			}
+			//}
 		}
 		else
 		{
