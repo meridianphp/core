@@ -51,7 +51,7 @@ class DB_MySQLi
 		return $this;
 	}
 	
-	public function select(array $cols = array('*'))
+	public function select($cols = array('*'))
 	{
 		return new MySQLi_Query("SELECT", $cols);
 	}

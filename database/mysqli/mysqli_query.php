@@ -33,10 +33,10 @@ class MySQLi_Query
 	private $limit;
 	private $orderby;
 	
-	public function __construct($type, array $cols)
+	public function __construct($type, $cols)
 	{
 		$this->type = $type;
-		$this->cols = $cols;
+		$this->cols = (is_array($cols) ? $cols : array_slice(func_get_args(), 1));
 		$this->prefix = DB_MySQLi::getInstance()->prefix;
 		return $this;
 	}
