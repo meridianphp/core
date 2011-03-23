@@ -49,7 +49,7 @@ class Output
 			$layout = View::$inherit_from.'/layouts/'.$layout.'.php';
 		}
 		// No? Well what about the usual layout direcotry?
-		elseif(file_exists(APPPATH.'views/'.$layout.'.php'))
+		elseif(file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
 		{
 			$layout = APPPATH.'views/layouts/'.$layout.'.php';
 		}
