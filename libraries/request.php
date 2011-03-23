@@ -49,7 +49,7 @@ class Request
 		{
 			//self::$segments[count(self::$segments)-1] = $last_seg[0];
 			self::$extension = $last_seg[1];
-			self::$request = implode('/', self::$segments);
+			//self::$request = implode('/', self::$segments);
 		}
 		unset($last_seg);
 	}
