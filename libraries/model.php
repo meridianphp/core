@@ -32,11 +32,21 @@ class Model
 	
 	public function fetchAll(array $args = array())
 	{
-		return $this->db->select()->from($this->_table)->orderby(@$args['orderby'][0], @$args['orderby'][1])->exec()->fetchAll();
+		$fetch = $this->db->select()->from($this->_table);
+		
+		if(isset($args['where'])) $fetch->where($args['where']);
+		if(isset($args['orderby'])) $fetch->orderby($args['orderby'][0], $args['orderby'][1]);
+		
+		return $fetch->exec()->fetchAll();
 	}
 	
 	public function find(array $args)
 	{
-		return $this->db->query($this->db->select()->from($this->_table)->where(@$args['where'])->orderby(@$args['orderby'][0], @$args['orderby'][1]))->fetchArray();
+		$fetch = $this->db->select()->from($this->_table);
+		
+		if(isset($args['where'])) $fetch->where($args['where']);
+		if(isset($args['orderby'])) $fetch->orderby($args['orderby'][0], $args['orderby'][1]);
+		
+		return $fetch->exec()->fetchArray();
 	}
 }
