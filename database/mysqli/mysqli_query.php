@@ -36,7 +36,7 @@ class MySQLi_Query
 	public function __construct($type, $cols)
 	{
 		$this->type = $type;
-		$this->cols = (is_array($cols) ? $cols : array_slice(func_get_args(), 1));
+		$this->cols = $cols;
 		$this->prefix = DB_MySQLi::getInstance()->prefix;
 		return $this;
 	}
@@ -98,7 +98,7 @@ class MySQLi_Query
 			$cols = array();
 			foreach($this->cols as $col => $as)
 			{
-				if($col)
+				if(!is_numeric($col))
 					$cols[] = " {$col} AS {$as}";
 				else
 					$cols[] = " {$as}";

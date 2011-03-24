@@ -53,7 +53,7 @@ class DB_MySQLi
 	
 	public function select($cols = array('*'))
 	{
-		return new MySQLi_Query("SELECT", $cols);
+		return new MySQLi_Query("SELECT", (is_array($cols) ? $cols : func_get_args()));
 	}
 	
 	public function delete()
