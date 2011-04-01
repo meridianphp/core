@@ -28,4 +28,5 @@ require_once SYSPATH.'libraries/request.php';
 require_once SYSPATH.'libraries/router.php';
 require_once SYSPATH.'libraries/load.php';
 require_once SYSPATH.'libraries/database.php';
+require_once SYSPATH.'libraries/param.php';
 require_once SYSPATH.'libraries/meridian.php';
