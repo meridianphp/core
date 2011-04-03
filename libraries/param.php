@@ -19,7 +19,7 @@
  */
 
 /**
- * Paramater cleaning/safening class for _POST, _GET and _REQUEST
+ * Paramater cleaning/safening class for _POST, _GET, _COOKIE and _REQUEST
  * @package Meridian
  */
 class Param
@@ -27,9 +27,10 @@ class Param
 	public static $post = array();
 	public static $get = array();
 	public static $request = array();
+	public static $cookie = array();
 	
 	/**
-	 * Initialize the class and clean and/or safen _POST, _GET and _REQUEST
+	 * Initialize the class and clean and/or safen _POST, _GET, _COOKIE and _REQUEST
 	 */
 	public static function init()
 	{
@@ -54,7 +55,8 @@ class Param
 		
 		// Safen data from < and >
 		self::$post = self::clean($_POST);
-		self::$get = self::clean($_POST);
+		self::$get = self::clean($_GET);
+		self::$cookie = self::clean($_COOKIE);
 		self::$request = self::clean($_REQUEST);
 	}
 	
