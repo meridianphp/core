@@ -25,6 +25,7 @@
 class Meridian
 {
 	private static $version = '0.1';
+	private static $forerunner_version = '0.2';
 	private static $app;
 	public static $db;
 	
@@ -38,6 +39,7 @@ class Meridian
 		if(file_exists(APPPATH.'config/database.php')) require_once APPPATH.'config/database.php';
 		
 		Request::process();
+		Param::init();
 		
 		// Route
 		Router::route();
@@ -127,5 +129,10 @@ class Meridian
 	public static function version()
 	{
 		return self::$version;
+	}
+	
+	public static function forerunnerVer()
+	{
+		return self::$forerunner_version;
 	}
 }
