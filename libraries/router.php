@@ -43,18 +43,19 @@ class Router
 		// Loop through the route array looking for wild-cards
 		foreach(self::$routes as $key => $val)
 		{
-			// Convert wild-cards to RegEx
+			// Convert wild-cards to regular expression
 			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
-			
-			// Do we have a back-reference?
-			if(strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
-				$val = preg_replace('#^'.$key.'$#', $val, $request);
-			
-			// Check if theres a RegEx match
+
+			// Is there a regex match?
 			if(preg_match('#^'.$key.'$#', $request))
 			{
-				self::_set_request($val);
-				return;
+				// Do we have a back-reference?
+				if(strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+				{
+					$val = preg_replace('#^'.$key.'$#', $val, $request);
+				}
+
+				return self::_set_request($val);
 			}
 		}
 
