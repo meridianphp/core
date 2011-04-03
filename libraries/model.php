@@ -24,10 +24,11 @@
  */
 class Model
 {
-	public $_table;
+	private $_table;
 	
 	public function __construct($name)
 	{
+		$this->_table = $name;
 	}
 	
 	public function fetchAll(array $args = array())
