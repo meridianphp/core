@@ -24,7 +24,7 @@
  */
 class Model
 {
-	private $_table;
+	public $_table;
 	
 	public function __construct($name)
 	{
