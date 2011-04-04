@@ -26,11 +26,19 @@ class Output
 {
 	private static $final_output = '';
 	
+	/**
+	 * Appends code to be displayed upon display.
+	 * @param string $output
+	 */
 	public static function append($output)
 	{
 		self::$final_output .= $output;
 	}
 	
+	/**
+	 * Displays the output in the specified layout.
+	 * @param string $layout
+	 */
 	public static function display($layout)
 	{
 		$output = self::$final_output;
