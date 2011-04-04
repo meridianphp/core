@@ -31,6 +31,11 @@ class Model
 		$this->_table = $name;
 	}
 	
+	/**
+	 * Fetches all tickets matching the arguments given.
+	 * @param array $args Array of arguments/filters, such as array('where'=>array(...))
+	 * @return array
+	 */
 	public function fetchAll(array $args = array())
 	{
 		$fetch = $this->db->select()->from($this->_table);
@@ -41,6 +46,11 @@ class Model
 		return $fetch->exec()->fetchAll();
 	}
 	
+	/**
+	 * Fetches an array of a row matching the arguments given.
+	 * @param array $args Array of arguments/filters, such as array('where'=>array(...))
+	 * @return array
+	 */
 	public function find(array $args)
 	{
 		$fetch = $this->db->select()->from($this->_table);
