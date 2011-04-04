@@ -28,6 +28,12 @@ class Load
 	private static $classes = array();
 	private static $models = array();
 	
+	/**
+	 * Loads a library from the applications library directory.
+	 * @param string $name The library file and class name.
+	 * @param bool $init Initialize the class or not.
+	 * @return object
+	 */
 	public static function library($name, $init = true)
 	{
 		if($init and in_array($name, self::$classes)) return self::$classes[$name];
@@ -47,6 +53,11 @@ class Load
 		else return true;
 	}
 	
+	/**
+	 * Loads a helper from either the application or meridian helper directory.
+	 * @param string $file The name of the helper file.
+	 * @return bool
+	 */
 	public static function helper($file)
 	{
 		if(in_array($file, self::$helpers)) return true;
@@ -62,6 +73,11 @@ class Load
 		return true;
 	}
 	
+	/**
+	 * Loads a model form the applications model directory.
+	 * @param string $name The model name to load.
+	 * @return object
+	 */
 	public static function model($name)
 	{
 		if(!class_exists('Model')) require_once SYSPATH.'libraries/model.php';
