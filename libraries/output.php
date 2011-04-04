@@ -72,7 +72,7 @@ class Output
 			}
 		}
 		
-		header("X-Powered-By: Meridian/".Meridian::version());
+		header("X-Powered-By: Meridian/".Meridian::version().' + Forerunner/'.Meridian::forerunnerVer());
 		
 		$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
 		echo str_replace('{memory_useage}',$memory,$page);
