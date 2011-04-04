@@ -24,7 +24,7 @@
  */
 class Meridian
 {
-	private static $version = '0.1';
+	private static $version = '0.2';
 	private static $app;
 	public static $db;
 	
@@ -37,10 +37,11 @@ class Meridian
 		require_once APPPATH.'config/routes.php';
 		if(file_exists(APPPATH.'config/database.php')) require_once APPPATH.'config/database.php';
 		
+		// Process the request and clean _POST, _GET, _COOKIE and _REQUEST arrays.
 		Request::process();
 		Param::init();
 		
-		// Route
+		// Route the request
 		Router::route();
 		
 		// Load the controller
@@ -75,17 +76,25 @@ class Meridian
 	 */
 	public static function run()
 	{
+		// Initialize the database
 		self::$db = Database::init();
 		
+		// Get the namespace and controller class name
 		$namespace = (Router::$namespace != null ? Router::$namespace.'/' :'');
 		$class = Router::$controller.'Controller';
-		self::$app = new $class;
-		call_user_func_array(array(self::$app, Router::$method), array_slice(Request::$segments, 2));
 		
+		// Start the app and call the method
+		self::$app = new $class;
+		call_user_func_array(array(self::$app, Router::$method), Request::$segments);
+		
+		// Render the method view and display the output
 		View::render((self::$app->_view === null ? $namespace.Router::$controller.'/'.Router::$method : self::$app->_view));
 		Output::display(self::$app->_layout);
 	}
 	
+	/**
+	 * Returns the app object.
+	 */
 	public static function app()
 	{
 		return self::$app;
