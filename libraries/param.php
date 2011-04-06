@@ -35,22 +35,18 @@ class Param
 	public static function init()
 	{
 		// Strip magic quotes from request data.
-		if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
-			$quotes_sybase = strtolower(ini_get('magic_quotes_sybase'));
-			$unescape_function = (empty($quotes_sybase) || $quotes_sybase === 'off') ? 'stripslashes($value)' : 'str_replace("\'\'","\'",$value)';
-			$stripslashes_deep = create_function('&$value, $fn', '
-				if (is_string($value)) {
-					$value = ' . $unescape_function . ';
-				} else if (is_array($value)) {
-					foreach ($value as &$v) $fn($v, $fn);
-				}
-			');
-		   
-			// Unescape data
-			$stripslashes_deep($_POST, $stripslashes_deep);
-			$stripslashes_deep($_GET, $stripslashes_deep);
-			$stripslashes_deep($_COOKIE, $stripslashes_deep);
-			$stripslashes_deep($_REQUEST, $stripslashes_deep);
+		if (get_magic_quotes_gpc())
+		{
+			function stripslashes_deep($value)
+			{
+				$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+				return $value;
+			}
+			
+			$_POST = array_map('stripslashes_deep', $_POST);
+			$_GET = array_map('stripslashes_deep', $_GET);
+			$_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+			$_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 		}
 		
 		// Safen data from < and >
