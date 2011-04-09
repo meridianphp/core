@@ -25,13 +25,13 @@
 class Controller
 {
 	private static $_instance;
+	public $db;
 	public $_view = null;
 	public $_layout = 'default';
 	
 	public function __construct()
 	{
 		$this->db = Meridian::$db;
-		
 		View::set('app', $this);
 	}
 	

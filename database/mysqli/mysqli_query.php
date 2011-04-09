@@ -120,6 +120,7 @@ class MySQLi_Query
 				$_where = array();
 				foreach($this->where as $col => $val)
 				{
+					$val = DB_MySQLi::getInstance()->real_escape_string($val);
 					if(is_numeric($col))
 					{
 						$_where[] = "`".$this->prefix.$this->table."`.".$val;
