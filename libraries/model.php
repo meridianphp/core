@@ -36,7 +36,7 @@ class Model
 	 * @param array $args Array of arguments/filters, such as array('where'=>array(...))
 	 * @return array
 	 */
-	public function fetch_all(array $args = array())
+	public function fetchAll(array $args = array())
 	{
 		$fetch = $this->db->select()->from($this->_table);
 		
