@@ -30,23 +30,44 @@ class MySQLi_Statement
 		$this->result = $result;
 	}
 	
-	public function fetchArray()
+	public function fetch_array()
 	{
 		return mysqli_fetch_array($this->result);
 	}
+	public function fetchArray()
+	{
+		return $this->fetch_array();
+	}
 	
-	public function fetchAll()
+	public function fetch_assoc()
+	{
+		return mysqli_fetch_assoc($this->result);
+	}
+	public function fetchAssoc()
+	{
+		return $this->fetch_assoc();
+	}
+	
+	public function fetch_all()
 	{
 		$rows = array();
-		while($row = $this->fetchArray())
+		while($row = $this->fetch_assoc())
 		{
 			$rows[] = $row;
 		}
 		return $rows;
 	}
+	public function fetchAll()
+	{
+		return $this->fetch_all();
+	}
 	
-	public function numRows()
+	public function num_rows()
 	{
 		return mysqli_num_rows($this->result);
+	}
+	public function numRows()
+	{
+		return $this->num_rows();
 	}
 }

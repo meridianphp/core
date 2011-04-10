@@ -36,14 +36,14 @@ class Model
 	 * @param array $args Array of arguments/filters, such as array('where'=>array(...))
 	 * @return array
 	 */
-	public function fetchAll(array $args = array())
+	public function fetch_all(array $args = array())
 	{
 		$fetch = $this->db->select()->from($this->_table);
 		
 		if(isset($args['where'])) $fetch->where($args['where']);
 		if(isset($args['orderby'])) $fetch->orderby($args['orderby'][0], $args['orderby'][1]);
 		
-		return $fetch->exec()->fetchAll();
+		return $fetch->exec()->fetch_all();
 	}
 	
 	/**
@@ -58,6 +58,6 @@ class Model
 		if(isset($args['where'])) $fetch->where($args['where']);
 		if(isset($args['orderby'])) $fetch->orderby($args['orderby'][0], $args['orderby'][1]);
 		
-		return $fetch->exec()->fetchArray();
+		return $fetch->exec()->fetch_assoc();
 	}
 }
