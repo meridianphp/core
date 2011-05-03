@@ -24,66 +24,83 @@
  */
 class Router
 {
-	public static $routes;
+	private static $routes;
 	public static $namespace;
 	public static $controller;
 	public static $method;
+	public static $args = array();
 	
-	public static function route()
+	public static function connect($template, $params)
 	{
-		$request = (Request::$extension !== null ? str_replace('.'.Request::$extension, '', Request::$request) : Request::$request);
-		
-		// Check if we only have one route
-		if(count(self::$routes) == 1)
+		if(is_string($params))
 		{
-			self::_set_request($request);
-			return;
+			$params = array($params, 'args' => array());
 		}
 		
-		// Loop through the route array looking for wild-cards
-		foreach(self::$routes as $key => $val)
-		{
-			// Convert wild-cards to regular expression
-			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
-
-			// Is there a regex match?
-			if(preg_match('#^'.$key.'$#', $request))
-			{
-				// Do we have a back-reference?
-				if(strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
-				{
-					$val = preg_replace('#^'.$key.'$#', $val, $request);
-				}
-
-				return self::_set_request($val);
-			}
-		}
-
-		// No matches found, give it the current request
-		self::_set_request(Request::$request);
+		static::$routes[] = array(
+			'template' => $template,
+			'route' => $params[0],
+			'args' => $params['args']
+		);
 	}
 	
-	// Private function used to set the request controller and method.
-	private static function _set_request($request)
+	public static function process($request)
 	{
-		$segs = explode('/', str_replace('::', '/', $request));
+		$request = '/' . (Request::$extension !== null ? str_replace('.' . Request::$extension, '', $request) : $request);
 		
-		if($segs[0] == '')
-			$segs = explode('/', str_replace('::', '/', self::$routes['/']));
+		$replace = array(
+			':controller' => '.+',
+			':action' => '.+',
+			':any' => '.+',
+			':num' => '[0-9]+'
+		);
 		
-		if(count($segs) == 3)
-		{
-			self::$namespace = $segs[0];
-			self::$controller = $segs[1];
-			self::$method = $segs[2];
+		foreach (static::$routes as $route) {
+			if ($route['template'] == $request) {
+				return static::set_request($route);
+			}
+			
+			//$route['template'] = trim($route['template'], '/');
+			$pattern = str_replace(array_keys($replace), array_values($replace), $route['template']);
+			
+			if (preg_match('#^' . $pattern . '$#', $request, $matches)) {
+				unset($matches[0]);
+				
+				// Check if the controller/method route contains '$' and assign it
+				// the request patterns then clear them from the args array to be
+				// passed to the controller method.
+				if (preg_match_all('/(?:\$(?P<vals>[^}]))/', $route['route'], $vals)) {
+					foreach ($vals['vals'] as $val) {
+						$route['route'] = str_replace('$' . $val, $matches[$val], $route['route']);
+						unset($matches[$val]);
+					}
+					$matches = array_merge($matches);
+				}
+				$route['args'] = array_merge($route['args'], $matches);
+				
+				return static::set_request($route);
+			}
 		}
-		else
-		{
-			self::$namespace = null;
-			self::$controller = $segs[0];
-			self::$method = (isset($segs[1]) ? $segs[1] : 'index');
+		
+		return static::set_request(array(
+			'route' => 'Error::notFound',
+			'args' => array()
+		));
+	}
+	
+	private static function set_request($route)
+	{
+		$path = explode('::', $route['route']);
+		
+		if (count($path) >= 3) {
+			static::$namespace = $path[0];
+			static::$controller = $path[1];
+			static::$method = $path[2];
+		} else {
+			static::$controller = $path[0];
+			static::$method = $path[1];
 		}
 		
-		unset($segs);
+		static::$args = $route['args'];
 	}
 }

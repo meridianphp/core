@@ -42,12 +42,12 @@ class Meridian
 		Param::init();
 		
 		// Route the request
-		Router::route();
+		Router::process(Request::$request);
 		
 		// Load the controller
-		require_once APPPATH.'controllers/app_controller.php';
-		if(file_exists(APPPATH.'controllers/'.strtolower((Router::$namespace != null ? Router::$namespace.'/' :'').Router::$controller).'_controller.php'))
-			require_once APPPATH.'controllers/'.strtolower((Router::$namespace != null ? Router::$namespace.'/' :'').Router::$controller).'_controller.php';
+		require_once APPPATH . 'controllers/app_controller.php';
+		if(file_exists(APPPATH . 'controllers/' . strtolower((Router::$namespace != null ? Router::$namespace . '/' :'').Router::$controller) . '_controller.php'))
+			require_once APPPATH . 'controllers/' . strtolower((Router::$namespace != null ? Router::$namespace . '/' :'').Router::$controller) . '_controller.php';
 		else
 		{
 			Router::$controller = 'Error';
@@ -61,7 +61,7 @@ class Meridian
 		}
 		
 		// Check if the method exists
-		if(!method_exists(Router::$controller.'Controller', Router::$method))
+		if(!method_exists(Router::$controller . 'Controller', Router::$method))
 		{
 			Router::$controller = 'Error';
 			Router::$method = 'notFound';

@@ -56,7 +56,7 @@ class Request
 	
 	public static function seg($num)
 	{
-		return self::$segments[$num];
+		return @self::$segments[$num];
 	}
 	
 	public static function matches($uri)
