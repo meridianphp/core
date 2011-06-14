@@ -3,6 +3,12 @@ Meridian
 
 Meridian is a PHP framework that runs on PHP and MySQL (if you want to use a database).
 
+Status
+------
+
+Meridian's development status is currently extremely low. Why? I'm pursuing other projects
+that aren't written in PHP.
+
 Requirements
 ------------
 
